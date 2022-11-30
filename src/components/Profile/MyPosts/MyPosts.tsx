@@ -1,6 +1,8 @@
 import React from 'react';
 import Posts from "./Posts/Posts";
 
+
+
 const MyPosts = () => {
     return (
 
@@ -11,7 +13,7 @@ const MyPosts = () => {
                 <button>add</button>
             </div>
             <div>
-                <Posts/>
+                <Posts message={'Hello'}/>
             </div>
         </div>
 
