@@ -3,9 +3,9 @@
     background-color: burlywood;
 }
 
-.item {
-    color: peachpuff;
+.item a{
+    text-decoration: none;
 }
-.item active {
+.item a.activeLink {
     color:goldenrod;
 }
