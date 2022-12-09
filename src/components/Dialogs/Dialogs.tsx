@@ -11,7 +11,7 @@ export const DialogItem = (props: DialogItemPropsType) => {
 
     let path = "/dialogs" + props.id
     return (
-        <div className={c.dialog + ' ' + c.active}>
+        <div className={c.dialogs + ' ' + c.active}>
             <NavLink to={path}>{props.name}</NavLink>
         </div>
     )
@@ -23,7 +23,7 @@ type MessagePropsType = {
 
 export const Message = (props: MessagePropsType) => {
     return (
-        <div className={c.dialog}>{props.message}</div>
+        <div className={c.dialogs}>{props.message}</div>
     )
 }
 type DialogsPropsType = {
@@ -49,15 +49,16 @@ export const Dialogs = (props:DialogsPropsType) => {
         {id: 5, message: 'Yo'}
     ]
 
+    let dialogsElements = dialogsData.map(el=> <DialogItem name={el.name} id={el.id} />)
+    let messagesElement = messagesData.map(el=> <Message message={el.message}/>)
+
     return (
         <div className={c.dialogs}>
             <div className={c.dialogsItems}>
-                <DialogItem name={dialogsData[0].name} id={dialogsData[0].id} />
-                <DialogItem name={dialogsData[1].name} id={dialogsData[1].id}/>
+                {dialogsElements}
             </div>
             <div className={c.messages}>
-                <Message message={messagesData[0].message}/>
-                <Message message={messagesData[1].message}/>
+                {messagesElement}
             </div>
         </div>
     )
