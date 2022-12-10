@@ -1,14 +1,15 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 
+type profilePropsType = {
+    posts: Array<postsType>
+}
+type postsType = {
+    message: string,
+    likescount: number
+}
 
-const Profile = () => {
-
-    let posts = [
-        {message: "hello", likescount: 5},
-        {message: "hello", likescount: 5},
-        {message: "hello", likescount: 5}
-    ]
+const Profile = (props: profilePropsType) => {
 
     return (
         <div>
@@ -16,7 +17,7 @@ const Profile = () => {
             <div>
                 ava+descriptions
             </div>
-            <MyPosts posts={posts}/>
+            <MyPosts posts={props.posts}/>
         </div>
     );
 };

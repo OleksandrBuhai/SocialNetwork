@@ -9,13 +9,11 @@ type postsType = {
     likescount: number
 }
 
-
 const MyPosts = (props: MyPostsPropsType) => {
 
     let postsElements = props.posts.map(el => <Posts message={el.message} likescount={el.likescount}/>)
 
     return (
-
         <div>
             My Post
             <div>

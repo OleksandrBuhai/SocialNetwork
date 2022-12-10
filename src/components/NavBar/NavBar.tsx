@@ -10,7 +10,7 @@ const NavBar = () => {
                     to="/profile"
                     activeClassName={c.activeLink}
                 >
-                   Profile
+                    Profile
                 </NavLink>
             </div>
             <div className={c.item}>
