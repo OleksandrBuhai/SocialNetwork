@@ -1,9 +1,19 @@
 import React from 'react';
 import Posts from "./Posts/Posts";
 
+type MyPostsPropsType = {
+    posts: Array<postsType>
+}
+type postsType = {
+    message: string
+    likescount: number
+}
 
 
-const MyPosts = () => {
+const MyPosts = (props: MyPostsPropsType) => {
+
+    let postsElements = props.posts.map(el => <Posts message={el.message} likescount={el.likescount}/>)
+
     return (
 
         <div>
@@ -13,7 +23,7 @@ const MyPosts = () => {
                 <button>add</button>
             </div>
             <div>
-                <Posts message={'Hello'} likescount={5}/>
+                {postsElements}
             </div>
         </div>
 
