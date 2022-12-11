@@ -1,5 +1,9 @@
 .nav {
-    grid-area: n;
+
+    grid-column: 1/2;
+    grid-row: 2/3;
+    padding: 20px;
+
     background-color: burlywood;
 }
 
