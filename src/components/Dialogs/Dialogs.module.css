@@ -5,6 +5,7 @@
 
 .dialogsItems {
     padding: 10px;
+
 }
 
 .dialogsItems .active {
@@ -17,4 +18,39 @@
 
 .messages .message {
 
+}
+.padding {
+    padding: 10px;
+}
+
+
+.textArea {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    background-color: #DBDFE9;
+    border-radius: 5px;
+
+    width: 250px;
+    height: 36px;
+
+    resize: none;
+    border: none;
+    outline: none;
+
+}
+.button {
+    color: #FFFFFF;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    border: none;
+    outline: none;
+    width: 78px;
+    height: 36px;
+    background: #0066CC;
+    border-radius: 3px;
 }

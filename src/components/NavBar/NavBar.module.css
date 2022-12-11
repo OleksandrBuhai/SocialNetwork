@@ -4,6 +4,7 @@
 }
 
 .item a{
+    padding-left: 15px;
     text-decoration: none;
 }
 .item a.activeLink {

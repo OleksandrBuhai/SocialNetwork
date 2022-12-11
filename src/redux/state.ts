@@ -15,6 +15,7 @@ export type DialogsType = {
 export type dialogType = {
     id:number,
     name:string
+    avatar:string
 }
 export type messagesData = {
     id:number
@@ -40,21 +41,21 @@ let state: RootStateType = {
     },
     dialogPage:{
             dialogsData: [
-                {id: 1, name: 'Dimych'},
-                {id: 2, name: 'Andrew'},
-                {id: 3, name: 'Sveta'},
-                {id: 4, name: 'Sasha'},
-                {id: 5, name: 'Viktor'},
-                {id: 6, name: 'Valera'}
+                {id: 1, name: 'Dimych', avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'},
+                {id: 2, name: 'Andrew',avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'},
+                {id: 3, name: 'Sveta',avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'},
+                {id: 4, name: 'Sasha',avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'},
+                {id: 5, name: 'Viktor',avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'},
+                {id: 6, name: 'Valera',avatar:'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'}
             ]
         ,
     messagesData: [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How is your it-kamasutra?'},
-        {id: 3, message: 'Yo'},
-        {id: 4, message: 'Yo'},
-        {id: 5, message: 'Yo'},
-        {id:6,message:'Yo'}
+        {id: 1, message: 'Hiiiiiiiiiiiiiiiiiiiiiisdfdsfdsfasdf     iiiiiiiiiii'},
+        {id: 2, message: 'hello how it your it-kamasutra?'},
+        {id: 3, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
+        {id: 4, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
+        {id: 5, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
+        {id:6,  message:'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'}
     ]},
     sideBar: {}
 }

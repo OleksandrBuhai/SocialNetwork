@@ -1,0 +1,14 @@
+.desriptionBlock {
+
+}
+.img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    padding-top: 10px;
+    border-radius: 20px;
+}
+.post {
+    padding-left: 25px;
+}

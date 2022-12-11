@@ -1,5 +1,6 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 type profilePropsType = {
     posts: Array<postsType>
@@ -13,10 +14,7 @@ const Profile = (props: profilePropsType) => {
 
     return (
         <div>
-            <img src={'https://victoria.mediaplanet.com/app/uploads/sites/102/2019/07/mainimage-26-888x500.jpg'}/>
-            <div>
-                ava+descriptions
-            </div>
+            <ProfileInfo/>
             <MyPosts posts={props.posts}/>
         </div>
     );

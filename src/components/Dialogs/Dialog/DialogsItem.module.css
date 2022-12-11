@@ -1,0 +1,18 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+
+
+}
+.dialogs a{
+    color: black;
+    text-decoration: none;
+}
+.dialogs a.activeLink {
+    color:goldenrod;
+}
+
+.dialogs img {
+    width: 20px;
+    border-radius: 20px;
+}

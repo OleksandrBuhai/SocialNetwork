@@ -1,5 +1,6 @@
 import React from 'react';
 import Posts from "./Posts/Posts";
+import c from "./MyPosts.module.css"
 
 type MyPostsPropsType = {
     posts: Array<postsType>
@@ -15,12 +16,12 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     return (
         <div>
-            My Post
-            <div>
-                <textarea></textarea>
-                <button>add</button>
+            <h3 className={c.header}> My Post</h3>
+            <div className={c.elements}>
+                <textarea className={c.textArea}></textarea>
+                <button className={c.button}>add</button>
             </div>
-            <div>
+            <div className={c.item}>
                 {postsElements}
             </div>
         </div>
