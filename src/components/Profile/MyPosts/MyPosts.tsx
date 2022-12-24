@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import Posts from "./Posts/Posts";
 import c from "./MyPosts.module.css"
 
 type MyPostsPropsType = {
     posts: Array<postsType>
-    addPost: (e: string) => void
+    addPost: () => void
+    updateNewPostText: (e: string) => void
 }
 type postsType = {
     message: string
@@ -19,21 +20,22 @@ const MyPosts = (props: MyPostsPropsType) => {
     let newPostElementValue = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        if (newPostElementValue.current) {
-            props.addPost(newPostElementValue.current.value)
-            newPostElementValue.current.value = ''
-        }
+        props.addPost()
     }
 
+    const onPostChange = () => {
+        if (newPostElementValue.current) {
+            let text = newPostElementValue.current.value
+            props.updateNewPostText(text)
+        }
+    }
 
     return (
         <div>
             <h3 className={c.header}> My Post</h3>
             <div className={c.elements}>
-                <textarea className={c.textArea} ref={newPostElementValue}></textarea>
-                <button className={c.button} onClick={() => {
-                    addPost()
-                }}>add
+                <textarea className={c.textArea} ref={newPostElementValue} onChange={onPostChange}></textarea>
+                <button className={c.button} onClick={addPost}>add
                 </button>
             </div>
             <div className={c.item}>
