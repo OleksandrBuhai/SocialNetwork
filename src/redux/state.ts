@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "./render";
+
 
 export type profileType = {
     posts: postsType[]
@@ -40,6 +40,9 @@ export type RootStateType = {
     sideBar: sideBarType
 }
 
+let rerenderEntireTree = (e:RootStateType) => {
+    console.log('State changed');
+}
 
 let state: RootStateType = {
     profilePage: {
@@ -104,6 +107,10 @@ export const addPost = () => {
 export const updateNewPostText = (text:string) => {
   state.profilePage.newPostText = text
     rerenderEntireTree(state)
+}
+
+export const subscribe = (observer:any) => {
+  rerenderEntireTree(observer)
 }
 export default state
 
