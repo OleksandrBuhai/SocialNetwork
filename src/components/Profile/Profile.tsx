@@ -1,11 +1,11 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ActionsType} from "../../redux/state";
 
 type profilePropsType = {
     posts: Array<postsType>
-    addPost: () => void
-    updateNewPostText:(e: string) => void
+    dispatch:(e:ActionsType)=>void
 }
 type postsType = {
     message: string,
@@ -17,7 +17,7 @@ const Profile = (props: profilePropsType) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
+            <MyPosts posts={props.posts}  dispatch={props.dispatch}/>
         </div>
     );
 };

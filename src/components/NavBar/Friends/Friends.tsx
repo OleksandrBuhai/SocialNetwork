@@ -13,7 +13,7 @@ type FriendsPropType = {
 
 const Friends: React.FC<FriendsPropType> = (props) => {
 
-    let friendsElement = props.state.map(el=> <Friend id={el.id} name={el.name} avatar={el.avatar}/>)
+    let friendsElement = props.state.map((el,index)=> <Friend key={index} id={el.id} name={el.name} avatar={el.avatar}/>)
 
     return (
         <div className={c.friendsElement}>

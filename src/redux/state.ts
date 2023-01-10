@@ -7,12 +7,10 @@ export type postsType = {
     message: string,
     likescount: number
 }
-
 export type DialogsType = {
     dialogsData: Array<dialogType>
     messagesData: Array<messagesData>
 }
-
 export type dialogType = {
     id: number,
     name: string
@@ -41,8 +39,26 @@ export type RootStateType = {
 let rerenderEntireTree = (e: RootStateType) => {
     console.log('State changed');
 }
+type AddPostActionType = {
+    type: 'ADD-POST'
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
 
-let store = {
+export type StoreType = {
+    _state: RootStateType
+    getState: () => RootStateType
+    _callSubscriber: (e: RootStateType) => void
+    addPost: () => void
+    updateNewPostText: (text: string) => void
+    subscribe: (observer: (state: RootStateType) => void) => void
+    dispatch:(action:any)=>void
+}
+
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -116,33 +132,51 @@ let store = {
         }
     },
 
-getState(){
-    return this._state
-},
-
-    _callSubscriber(e:RootStateType){
-        console.log('state changed')
+    getState() {
+        return this._state
     },
 
- addPost  (){
-    let newPost = {
-        id: 4,
-        message: this._state.profilePage.newPostText,
-        /*message: this._state.profilePage.newPostText,*/
-        likescount: 0
+    _callSubscriber(e: RootStateType) {
+
+    },
+
+    addPost() {
+        let newPost = {
+            id: 4,
+            message: this._state.profilePage.newPostText,
+            /*message: this._state.profilePage.newPostText,*/
+            likescount: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = ""
+        this._callSubscriber(this._state)
+    },
+
+    updateNewPostText(text: string) {
+        this._state.profilePage.newPostText = text
+        this._callSubscriber(this._state)
+    },
+    dispatch(action:ActionsType){
+        if (action.type==="ADD-POST"){
+            let newPost = {
+                id: 4,
+                message: this._state.profilePage.newPostText,
+                /*message: this._state.profilePage.newPostText,*/
+                likescount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ""
+            this._callSubscriber(this._state)
+        }else if (action.type=== "UPDATE-NEW-POST-TEXT"){
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber(this._state)
+        }
+    },
+
+    subscribe(observer: (state: RootStateType) => void) {
+        this._callSubscriber = observer
     }
-     this._state.profilePage.posts.push(newPost)
-     this._state.profilePage.newPostText = ""
-    rerenderEntireTree(this._state)
-},
-
- updateNewPostText  (text: string){
-     this._state.profilePage.newPostText = text
-    rerenderEntireTree(this._state)
-},
-
- subscribe  (observer: (state:RootStateType)=>void)  {
-   this._callSubscriber = observer}
 }
+
 export default store
 
