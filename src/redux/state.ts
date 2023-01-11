@@ -36,9 +36,7 @@ export type RootStateType = {
     sideBar: sideBarType
 }
 
-let rerenderEntireTree = (e: RootStateType) => {
-    console.log('State changed');
-}
+
 type AddPostActionType = {
     type: 'ADD-POST'
 }
@@ -177,6 +175,14 @@ let store: StoreType = {
         this._callSubscriber = observer
     }
 }
+
+export const addPostActionCreator = ():AddPostActionType => ({
+ type: 'ADD-POST'
+})
+export const updateNewPostTextActionCreator = (text:string) :UpdateNewPostTextActionType =>
+    ({type:'UPDATE-NEW-POST-TEXT', newText: text })
+
+
 
 export default store
 
