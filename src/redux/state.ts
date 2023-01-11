@@ -1,3 +1,8 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
+
 export type profileType = {
     posts: postsType[]
     newPostText: string
@@ -8,7 +13,7 @@ export type postsType = {
     likescount: number
 }
 export type DialogsType = {
-    newMessageText:string
+    newMessageText: string
     dialogsData: Array<dialogType>
     messagesData: Array<messagesData>
 }
@@ -37,23 +42,26 @@ export type RootStateType = {
     sideBar: sideBarType
 }
 
-
-type AddPostActionType = {
+export  type AddPostActionType = {
     type: 'ADD-POST'
 }
-type UpdateNewPostTextActionType = {
+export  type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
-type AddMessageActionType = {
+export type AddMessageActionType = {
     type: 'SEND-MESSAGE'
 }
-type UpdateNewMessageActionType = {
+export type UpdateNewMessageActionType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessage:string
+    newMessage: string
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageActionType
+export type ActionsType =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | AddMessageActionType
+    | UpdateNewMessageActionType
 
 export type StoreType = {
     _state: RootStateType
@@ -62,7 +70,7 @@ export type StoreType = {
     addPost: () => void
     updateNewPostText: (text: string) => void
     subscribe: (observer: (state: RootStateType) => void) => void
-    dispatch:(action:any)=>void
+    dispatch: (action: any) => void
 }
 
 let store: StoreType = {
@@ -164,51 +172,20 @@ let store: StoreType = {
         this._state.profilePage.newPostText = text
         this._callSubscriber(this._state)
     },
-    dispatch(action:ActionsType){
-        if (action.type==="ADD-POST"){
-            let newPost = {
-                id: 4,
-                message: this._state.profilePage.newPostText,
-                /*message: this._state.profilePage.newPostText,*/
-                likescount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._callSubscriber(this._state)
-        }else if (action.type=== "UPDATE-NEW-POST-TEXT"){
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        }else if (action.type==="SEND-MESSAGE"){
-            let newMessage = {
-                id: 4,
-                message: this._state.dialogPage.newMessageText,
-                /*message: this._state.profilePage.newPostText,*/
+    dispatch(action: ActionsType) {
 
-            }
-            this._state.dialogPage.messagesData.push(newMessage)
-            this._state.dialogPage.newMessageText = ""
-            this._callSubscriber(this._state)
-        }else if (action.type=== "UPDATE-NEW-MESSAGE-TEXT"){
-            this._state.dialogPage.newMessageText = action.newMessage
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
+        this._state.sideBar = sidebarReducer(this._state.sideBar,action)
+
+        this._callSubscriber(this._state)
     },
 
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer
     }
-}
 
-export const addPostActionCreator = ():AddPostActionType => ({
- type: 'ADD-POST'
-})
-export const updateNewPostTextActionCreator = (text:string) :UpdateNewPostTextActionType =>
-    ({type:'UPDATE-NEW-POST-TEXT', newText: text })
-export const addMessageActionCreator = ():AddMessageActionType => ({
-    type: 'SEND-MESSAGE'
-})
-export const updateNewMessageTextActionCreator = (text:string) :UpdateNewMessageActionType =>
-    ({type:'UPDATE-NEW-MESSAGE-TEXT', newMessage: text })
+}
 
 
 
