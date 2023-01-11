@@ -8,6 +8,7 @@ export type postsType = {
     likescount: number
 }
 export type DialogsType = {
+    newMessageText:string
     dialogsData: Array<dialogType>
     messagesData: Array<messagesData>
 }
@@ -44,7 +45,15 @@ type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType
+type AddMessageActionType = {
+    type: 'SEND-MESSAGE'
+}
+type UpdateNewMessageActionType = {
+    type: 'UPDATE-NEW-MESSAGE-TEXT'
+    newMessage:string
+}
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | AddMessageActionType | UpdateNewMessageActionType
 
 export type StoreType = {
     _state: RootStateType
@@ -67,6 +76,7 @@ let store: StoreType = {
             newPostText: "hhhh"
         },
         dialogPage: {
+            newMessageText: " ",
             dialogsData: [
                 {
                     id: 1,
@@ -168,6 +178,19 @@ let store: StoreType = {
         }else if (action.type=== "UPDATE-NEW-POST-TEXT"){
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber(this._state)
+        }else if (action.type==="SEND-MESSAGE"){
+            let newMessage = {
+                id: 4,
+                message: this._state.dialogPage.newMessageText,
+                /*message: this._state.profilePage.newPostText,*/
+
+            }
+            this._state.dialogPage.messagesData.push(newMessage)
+            this._state.dialogPage.newMessageText = ""
+            this._callSubscriber(this._state)
+        }else if (action.type=== "UPDATE-NEW-MESSAGE-TEXT"){
+            this._state.dialogPage.newMessageText = action.newMessage
+            this._callSubscriber(this._state)
         }
     },
 
@@ -181,6 +204,11 @@ export const addPostActionCreator = ():AddPostActionType => ({
 })
 export const updateNewPostTextActionCreator = (text:string) :UpdateNewPostTextActionType =>
     ({type:'UPDATE-NEW-POST-TEXT', newText: text })
+export const addMessageActionCreator = ():AddMessageActionType => ({
+    type: 'SEND-MESSAGE'
+})
+export const updateNewMessageTextActionCreator = (text:string) :UpdateNewMessageActionType =>
+    ({type:'UPDATE-NEW-MESSAGE-TEXT', newMessage: text })
 
 
 

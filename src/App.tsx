@@ -23,7 +23,7 @@ function App(props: AppPropsType) {
                     <Route path={"/profile"} render={() => <Profile posts={props.state.profilePage.posts}
                                                                     dispatch={props.dispatch}/>}/>
                     <Route path={"/dialogs"} render={() => <Dialogs dialogs={props.state.dialogPage.dialogsData}
-                                                                    messages={props.state.dialogPage.messagesData}/>}/>
+                                                                    messages={props.state.dialogPage.messagesData} dispatch={props.dispatch}/>}/>
                 </div>
             </div>
         </BrowserRouter>
