@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
-import store, {RootStateType} from "./redux/state";
+import {RootStateType} from "./redux/state";
+import store from "./redux/redux-state"
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";

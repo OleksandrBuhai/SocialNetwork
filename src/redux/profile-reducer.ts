@@ -1,6 +1,16 @@
 import {ActionsType, AddPostActionType, profileType, UpdateNewPostTextActionType} from "./state";
 
-  const profileReducer = (state:profileType, action:ActionsType) => {
+
+let initialState = {
+        posts: [
+            {id: 1, message: "hello", likescount: 5},
+            {id: 2, message: "hello", likescount: 5},
+            {id: 3, message: "hello", likescount: 5}
+        ],
+        newPostText: "hhhh"
+}
+
+  const profileReducer = (state:profileType= initialState, action:ActionsType) => {
     if (action.type==="ADD-POST"){
         let newPost = {
             id: 4,
