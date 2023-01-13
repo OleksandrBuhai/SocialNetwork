@@ -9,10 +9,10 @@ type profilePropsType = {
 }
 type postsType = {
     message: string,
-    likescount: number
+    likecount: number
 }
 
-const Profile = (props: profilePropsType) => {
+const Profile:React.FC<profilePropsType> = (props) => {
 
     return (
         <div>

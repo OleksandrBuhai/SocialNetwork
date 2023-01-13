@@ -1,4 +1,4 @@
-import {ActionsType, sideBarType} from "./state";
+import {ActionsType, NavbarPageType} from "./state";
 
 let initialState = {
     friends: [
@@ -21,7 +21,7 @@ let initialState = {
 }
 
 
-const sidebarReducer = (state:sideBarType = initialState,action:ActionsType) => {
+const sidebarReducer = (state:NavbarPageType = initialState,action:ActionsType) => {
     return state
 }
 export default  sidebarReducer

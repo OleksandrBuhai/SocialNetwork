@@ -1,7 +1,7 @@
-import {ActionsType, AddMessageActionType, DialogsType, UpdateNewMessageActionType} from "./state";
+import {ActionsType, AddMessageActionType, DialogsPageType, UpdateNewMessageActionType} from "./state";
 
 let initialState = {
-    newMessageText: " ",
+    newMessageBody: " ",
     dialogsData: [
         {
             id: 1,
@@ -45,19 +45,19 @@ let initialState = {
     ]
 }
 
-const dialogsReducer = (state:DialogsType = initialState,action:ActionsType) => {
+const dialogsReducer = (state:DialogsPageType = initialState,action:ActionsType) => {
     if (action.type==="SEND-MESSAGE"){
         let newMessage = {
             id: 4,
-            message: state.newMessageText
+            message: state.newMessageBody
             /*message: this._state.profilePage.newPostText,*/
 
         }
         state.messagesData.push(newMessage)
-        state.newMessageText = ""
+        state.newMessageBody = ""
         return state
     }else if (action.type=== "UPDATE-NEW-MESSAGE-TEXT"){
-        state.newMessageText = action.newMessage
+        state.newMessageBody = action.newMessage
         return state
     }
     return state

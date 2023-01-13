@@ -18,12 +18,11 @@ function App(props: AppPropsType) {
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <NavBar state={props.state.sideBar}/>
+                <NavBar state={props.state.sidebar}/>
                 <div className={"app-wrapper-content"}>
                     <Route path={"/profile"} render={() => <Profile posts={props.state.profilePage.posts}
                                                                     dispatch={props.dispatch}/>}/>
-                    <Route path={"/dialogs"} render={() => <Dialogs dialogs={props.state.dialogPage.dialogsData}
-                                                                    messages={props.state.dialogPage.messagesData} dispatch={props.dispatch}/>}/>
+                    <Route path={"/dialogs"} render={() => <Dialogs state={props.state.dialogsPage} dispatch={props.dispatch}/>}/>
                 </div>
             </div>
         </BrowserRouter>

@@ -1,137 +1,122 @@
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
-import sidebarReducer from "./sidebar-reducer";
+import navbarReducer from "./sidebar-reducer";
 
-
-export type profileType = {
-    posts: postsType[]
-    newPostText: string
-}
-export type postsType = {
-    id: number
-    message: string,
-    likescount: number
-}
-export type DialogsType = {
-    newMessageText: string
-    dialogsData: Array<dialogType>
-    messagesData: Array<messagesData>
-}
-export type dialogType = {
+export type PostType = {
     id: number,
-    name: string
-    avatar: string
+    message: string,
+    likecount: number
 }
-export type messagesData = {
-    id: number
+export type MessageType = {
+    id: number,
     message: string
 }
-
-export type FriendsType = {
-    id: number
-    name: string
+type DialogType = {
+    id: number,
+    name: string,
     avatar: string
 }
-
-export type sideBarType = {
+type FriendsType = {
+    id: number,
+    name: string,
+    avatar: string
+}
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+export type DialogsPageType = {
+    messagesData: Array<MessageType>
+    dialogsData: Array<DialogType>
+    newMessageBody: string
+}
+export type NavbarPageType = {
     friends: Array<FriendsType>
 }
 export type RootStateType = {
-    profilePage: profileType
-    dialogPage: DialogsType
-    sideBar: sideBarType
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    sidebar: NavbarPageType
 }
-
-export  type AddPostActionType = {
-    type: 'ADD-POST'
-}
-export  type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-export type AddMessageActionType = {
-    type: 'SEND-MESSAGE'
-}
-export type UpdateNewMessageActionType = {
-    type: 'UPDATE-NEW-MESSAGE-TEXT'
-    newMessage: string
-}
-
-export type ActionsType =
-    AddPostActionType
-    | UpdateNewPostTextActionType
-    | AddMessageActionType
-    | UpdateNewMessageActionType
-
 export type StoreType = {
     _state: RootStateType
-    getState: () => RootStateType
     _callSubscriber: (e: RootStateType) => void
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    getState: () => RootStateType
     subscribe: (observer: (state: RootStateType) => void) => void
     dispatch: (action: any) => void
 }
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+export type UpdateNewMessageActionType = { type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: string }
+export type AddMessageActionType = { type: 'SEND-MESSAGE' }
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageActionType | AddMessageActionType
 
 let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
-                {id: 1, message: "hello", likescount: 5},
-                {id: 2, message: "hello", likescount: 5},
-                {id: 3, message: "hello", likescount: 5}
+                {id: 1, message: 'Hi,how are you?', likecount: 12},
+                {id: 2, message: "It\'s my first post.", likecount: 11},
+                {id: 3, message: "Darova.", likecount: 13},
+                {id: 4, message: "LaLaLaLa.", likecount: 14},
             ],
-            newPostText: "hhhh"
+            newPostText: ''
         },
-        dialogPage: {
-            newMessageText: " ",
+
+        dialogsPage: {
+            messagesData: [
+                {id: 1, message: 'Hi :)'},
+                {id: 2, message: 'How is your IT-kamasutra?'},
+                {id: 3, message: 'Yo!'},
+                {id: 4, message: 'Yo!'},
+                {id: 5, message: 'Yo!'},
+            ],
             dialogsData: [
                 {
                     id: 1,
                     name: 'Dimych',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROlR6xZLWz4v7ZLeEZRn5W-d0RFIq_loCqgPtaoMK5nVHu3x8ty9cn-LGw01HBMbcnz3M&usqp=CAU'
                 },
                 {
                     id: 2,
-                    name: 'Andrew',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    name: 'Andrey',
+                    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLQlX8kHgCFYgNqXisB6cWENyTofgINwzUOG_u6zBbliVuY_n5EwFl0W4k1b43X9HcsII&usqp=CAU'
                 },
                 {
                     id: 3,
                     name: 'Sveta',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    avatar: 'https://t4.ftcdn.net/jpg/02/45/28/17/360_F_245281721_2uYVgLSFnaH9AlZ1WWpkZavIcEEGBU84.jpg'
                 },
                 {
                     id: 4,
                     name: 'Sasha',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkfF6nBhidhIzL330CYtg70I8tpDBGJ2YjBPnE9D9gY0iLmGu563WBIab4KBexSDv7kG8&usqp=CAU'
                 },
                 {
                     id: 5,
                     name: 'Viktor',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx_0reNO6i6Vca5RNFEf_fHsoWbTi86fwYEmX61Wj8TBIb2WNtfIw7KX7FwZasSHjGoEQ&usqp=CAU'
                 },
                 {
                     id: 6,
-                    name: 'Valera',
-                    avatar: 'https://www.meme-arsenal.com/memes/a025985c751e178c66ef5594644684fa.jpg'
+                    name: 'Valery',
+                    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcfJW5O8sjIwR9qwtci0d8yKu9yuflD-RreQnrkpQS9JGwqkJJRukoamCV4PV5BEqtS3o&usqp=CAU'
                 }
-            ]
-            ,
-            messagesData: [
-                {id: 1, message: 'Hiiiiiiiiiiiiiiiiiiiiiisdfdsfdsfasdf     iiiiiiiiiii'},
-                {id: 2, message: 'hello how it your it-kamasutra?'},
-                {id: 3, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
-                {id: 4, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
-                {id: 5, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'},
-                {id: 6, message: 'Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii'}
-            ]
+            ],
+            newMessageBody: '',
         },
-        sideBar: {
+
+        sidebar: {
             friends: [
                 {
                     id: 1,
-                    name: 'Marina',
+                    name: 'Andrew',
                     avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkFD7rVDIsj77R6CBhfwmiidoHUQY76Ze4ShORloVE-_ECfbYnDCVri9odpInT7eHXyHw&usqp=CAU'
                 },
                 {
@@ -141,53 +126,32 @@ let store: StoreType = {
                 },
                 {
                     id: 3,
-                    name: 'Honzo',
+                    name: 'Sveta',
                     avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfBJb0V9mwKFAoznIFdeWISIB_JR_XzIMYwA&usqp=CAU'
                 }
             ]
+
         }
     },
-
-    getState() {
-        return this._state
-    },
-
     _callSubscriber(e: RootStateType) {
-
+        console.log('State Changed')
     },
-
-    addPost() {
-        let newPost = {
-            id: 4,
-            message: this._state.profilePage.newPostText,
-            /*message: this._state.profilePage.newPostText,*/
-            likescount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._callSubscriber(this._state)
+    getState() {
+        return this._state;
     },
-
-    updateNewPostText(text: string) {
-        this._state.profilePage.newPostText = text
-        this._callSubscriber(this._state)
+    subscribe(observer) {
+        this._callSubscriber = observer // Pattern : Observer
     },
     dispatch(action: ActionsType) {
-
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogPage = dialogsReducer(this._state.dialogPage, action)
-        this._state.sideBar = sidebarReducer(this._state.sideBar,action)
+
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+
+        this._state.sidebar = navbarReducer(this._state.sidebar, action)
 
         this._callSubscriber(this._state)
-    },
-
-    subscribe(observer: (state: RootStateType) => void) {
-        this._callSubscriber = observer
     }
-
 }
 
 
-
 export default store
-

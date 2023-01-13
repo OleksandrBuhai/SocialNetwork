@@ -6,38 +6,46 @@ import {ActionsType,} from "../../redux/state";
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../redux/dialogs-reducer";
 
 
-type DialogsPropsType = {
-    dialogs: Array<dialogsData>
-    messages: Array<messagesData>
-    dispatch:(e:ActionsType)=>void
-}
-
-type dialogsData = {
+type DialogType = {
     id: number,
-    name: string
-    avatar:string
+    name: string,
+    avatar: string
 }
-type messagesData = {
-    id: number
+type MessagesType = {
+    id: number,
     message: string
 }
+type DialogsType = {
+    dialogsData: Array<DialogType>,
+    messagesData: Array<MessagesType>
+    newMessageBody: string
+}
+type StatePropsType = {
+    state: DialogsType
+    dispatch: (e: ActionsType) => void
+}
 
-export const Dialogs = (props: DialogsPropsType) => {
+export const Dialogs:React.FC<StatePropsType> = (props) => {
 
 
-    let dialogsElements = props.dialogs.map((el,index) => <DialogItem key={index} name={el.name} id={el.id} avatar={el.avatar}/>)
-    let messagesElement = props.messages.map((el,index) => <Message key={index} message={el.message}/>)
+    let dialogsElements = props.state.dialogsData.map((el,index) => <DialogItem key={index} name={el.name} id={el.id} avatar={el.avatar}/>)
+    let messagesElement = props.state.messagesData.map((el,index) => <Message key={index} message={el.message}/>)
 
     let newMessageElementValue= React.createRef<HTMLTextAreaElement>();
 
     const addMessage = () => {
         console.log('asdasd')
         props.dispatch(addMessageActionCreator())
+        if (newMessageElementValue.current){
+            newMessageElementValue.current.value= ""
+        }
+
     }
     const onMessageChange = () => {
         if (newMessageElementValue.current){
             let text = newMessageElementValue.current.value
             props.dispatch(updateNewMessageTextActionCreator(text))
+
         }
     }
 

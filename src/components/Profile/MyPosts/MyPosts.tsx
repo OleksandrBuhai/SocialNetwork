@@ -10,18 +10,21 @@ type MyPostsPropsType = {
 }
 type postsType = {
     message: string
-    likescount: number
+    likecount: number
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
 
-    let postsElements = props.posts.map((el,index) => <Posts key={index} message={el.message} likescount={el.likescount}/>)
+    let postsElements = props.posts.map((el,index) => <Posts key={index} message={el.message} likescount={el.likecount}/>)
 
 
     let newPostElementValue = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
         props.dispatch(addPostActionCreator())
+        if (newPostElementValue.current){
+            newPostElementValue.current.value=""
+        }
     }
 
     const onPostChange = () => {
