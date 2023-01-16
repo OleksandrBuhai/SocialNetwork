@@ -36,7 +36,7 @@ const MyPosts = (props: MyPostsPropsType) => {
         <div>
             <h3 className={c.header}> My Post</h3>
             <div className={c.elements}>
-                <textarea className={c.textArea} ref={newPostElementValue} onChange={onPostChange}></textarea>
+                <textarea className={c.textArea} ref={newPostElementValue} onChange={onPostChange} value={props.newPostText}></textarea>
                 <button className={c.button} onClick={addPost}>add
                 </button>
             </div>

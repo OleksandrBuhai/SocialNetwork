@@ -7,15 +7,12 @@ type ProfileType = {
     store:storeType
 }
 
-
-
 const MyPostsContainer = (props:ProfileType) => {
 
     const posts = props.store.getState().profilePage
 
     const addPost = () => {
         props.store.dispatch(addPostActionCreator())
-
     }
 
     const onPostChange = (text:string) => {

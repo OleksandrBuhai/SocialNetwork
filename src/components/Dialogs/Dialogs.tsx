@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 import c from "./Dialogs.module.css"
 import {Message} from "./Message/Message";
 import {DialogItem} from "./Dialog/DialogItem";
@@ -22,7 +22,9 @@ type DialogsType = {
 }
 type StatePropsType = {
     state: DialogsType
-    dispatch: (e: ActionsType) => void
+    addMessage:(e:string)=>void
+    onMessageChange:(e:string)=>void
+    newMessageText:string
 }
 
 export const Dialogs:React.FC<StatePropsType> = (props) => {
@@ -34,19 +36,10 @@ export const Dialogs:React.FC<StatePropsType> = (props) => {
     let newMessageElementValue= React.createRef<HTMLTextAreaElement>();
 
     const addMessage = () => {
-        console.log('asdasd')
-        props.dispatch(addMessageActionCreator())
-        if (newMessageElementValue.current){
-            newMessageElementValue.current.value= ""
-        }
-
+            props.addMessage(props.newMessageText)
     }
-    const onMessageChange = () => {
-        if (newMessageElementValue.current){
-            let text = newMessageElementValue.current.value
-            props.dispatch(updateNewMessageTextActionCreator(text))
-
-        }
+    const onMessageChange = (e:ChangeEvent<HTMLTextAreaElement>) => {
+     props.onMessageChange(e.currentTarget.value)
     }
 
     return (
@@ -57,7 +50,7 @@ export const Dialogs:React.FC<StatePropsType> = (props) => {
             <div className={c.messages}>
                 {messagesElement}
             </div>
-            <textarea className={c.textArea} ref={newMessageElementValue} onChange={onMessageChange}></textarea>
+            <textarea className={c.textArea} ref={newMessageElementValue} onChange={onMessageChange} value={props.newMessageText}></textarea>
             <button className={c.button} onClick={addMessage}>Send Message</button>
         </div>
     )
