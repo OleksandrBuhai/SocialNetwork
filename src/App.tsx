@@ -15,15 +15,17 @@ type AppPropsType = {
     store:storeType
 }
 
-function App(props: AppPropsType) {
+type AppType = {}
+
+function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <Header/>
-                <NavBar state={props.state.sidebar}/>
+                <NavBar />
                 <div className={"app-wrapper-content"}>
-                    <Route path={"/profile"} render={() => <Profile state={props.store}/>}/>
-                    <Route path={"/dialogs"} render={() => <DialogsContainer store={props.store}/>}/>
+                    <Route path={"/profile"} render={() => <Profile/>}/>
+                    <Route path={"/dialogs"} render={() => <DialogsContainer />}/>
                 </div>
             </div>
         </BrowserRouter>

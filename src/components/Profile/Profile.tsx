@@ -6,7 +6,7 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {storeType} from "../../redux/redux-state";
 
 type profilePropsType = {
-    state: storeType
+
 }
 type postsType = {
     message: string,
@@ -18,7 +18,7 @@ const Profile:React.FC<profilePropsType> = (props) => {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer store={props.state}/>
+            <MyPostsContainer/>
             {/*<MyPosts posts={props.posts}  dispatch={props.dispatch}/>*/}
         </div>
     );
