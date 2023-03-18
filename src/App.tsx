@@ -1,13 +1,11 @@
-import React from 'react';
+import { BrowserRouter, Route } from "react-router-dom";
 import './App.css';
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
-import {Dialogs} from "./components/Dialogs/Dialogs";
-import {BrowserRouter, Route} from "react-router-dom";
-import {ActionsType, RootStateType} from "./redux/state";
-import {storeType} from "./redux/redux-state";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import { storeType } from "./redux/redux-state";
+import { ActionsType, RootStateType } from "./redux/state";
 
 type AppPropsType = {
     state: RootStateType
@@ -25,7 +23,7 @@ function App(props: AppType) {
                 <NavBar />
                 <div className={"app-wrapper-content"}>
                     <Route path={"/profile"} render={() => <Profile/>}/>
-                    <Route path={"/dialogs"} render={() => <DialogsContainer />}/>
+                    <Route path={"/dialogs"} render={() => <DialogsContainer  />}/>
                 </div>
             </div>
         </BrowserRouter>
