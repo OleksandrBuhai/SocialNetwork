@@ -2,15 +2,14 @@ import React from 'react';
 import c from './NavBar.module.css'
 import {NavLink} from "react-router-dom";
 import Friends from "./Friends/Friends";
-import StoreContext from '../../StoreContext';
+import store from '../../redux/redux-state';
+
 
 type NavBar = {}
 
 const NavBar = (props:NavBar) => {
     return (
-    <StoreContext.Consumer>
-        {(store)=>{
-            return (
+    
                 <nav className={c.nav}>
                     <div className={c.item}>
                         <NavLink
@@ -36,10 +35,6 @@ const NavBar = (props:NavBar) => {
                     </div>
                 </nav>
             );
-        }
-        }
-    </StoreContext.Consumer>
-    )
 };
 
 export default NavBar;

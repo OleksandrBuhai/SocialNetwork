@@ -1,30 +1,25 @@
 import React, {ChangeEvent} from 'react';
 import Posts from "./Posts/Posts";
 import c from "./MyPosts.module.css"
-import {ProfilePageType,} from "../../../redux/state";
+import { PostType } from '../../../redux/profile-reducer';
+
 
 type MyPostsPropsType = {
-    posts: ProfilePageType,
-    addPost: (e: string) => void
+    posts:Array<PostType>,
+    newPostText:string
+    addPost: () => void
     onPostChange: (e: string) => void
-    newPostText: string
-}
-type postsType = {
-    id: string
-    message: string
-    likecount: number
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
 
-    let postsElements = props.posts.posts.map((el, index) => <Posts key={index} message={el.message}
+    let postsElements = props.posts.map((el, index) => <Posts key={index} message={el.message}
                                                                     likescount={el.likecount}/>)
-
 
     let newPostElementValue = React.createRef<HTMLTextAreaElement>();
 
     const addPost = () => {
-        props.addPost(props.newPostText)
+        props.addPost()
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,4 +43,3 @@ const MyPosts = (props: MyPostsPropsType) => {
     );
 };
 
-export default MyPosts;

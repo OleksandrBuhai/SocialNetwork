@@ -1,39 +1,38 @@
-import React from 'react';
-import MyPosts from "./MyPosts";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/profile-reducer";
-import {storeType} from "../../../redux/redux-state";
-import StoreContext from '../../../StoreContext';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { addPostActionCreator, PostType, updateNewPostTextActionCreator } from "../../../redux/profile-reducer";
+import { AppStateType } from "../../../redux/redux-state";
+import { MyPosts } from './MyPosts';
 
-type ProfileType = {
-    store: storeType
+
+type mapStateToProps = {
+    posts:Array<PostType>,
+    newPostText:string
 }
-type ProfilePageType = {}
+type mapDispatchToProps = {
+        addPost: ()=>void,
+        onPostChange:(e:string)=>void
+}
 
-const MyPostsContainer = (props: ProfilePageType) => {
-
-    return (
-        <StoreContext.Consumer>
-            {(store)=>{
-                const posts = store.getState().profilePage
-
-                const addPost = () => {
-                   store.dispatch(addPostActionCreator())
-                }
-
-                const onPostChange = (text: string) => {
-                    let newText = updateNewPostTextActionCreator(text)
-                   store.dispatch(newText)
-                }
+let mapStateToProps = (state: AppStateType):mapStateToProps => {
+    return {
+        posts:state.profilePage.posts,
+        newPostText:state.profilePage.newPostText
+    }
+}
 
 
-                return (
-                    <MyPosts addPost={addPost} onPostChange={onPostChange} posts={posts} newPostText={posts.newPostText}/>
-                )
-            }}
-        </StoreContext.Consumer>
-    )
+let mapDispatchToProps = (dispatch:Dispatch):mapDispatchToProps => {
+    return {
+      addPost:()=>{
+        dispatch(addPostActionCreator())
+      },
+      onPostChange: (e:string)=>{
+        dispatch(updateNewPostTextActionCreator(e))
+      }
+    }
+}
 
-
-};
+const MyPostsContainer = connect(mapStateToProps,mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

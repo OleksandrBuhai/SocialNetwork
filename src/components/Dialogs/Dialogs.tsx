@@ -1,7 +1,7 @@
-import React, {ChangeEvent} from 'react'
-import c from "./Dialogs.module.css"
-import {Message} from "./Message/Message";
-import {DialogItem} from "./Dialog/DialogItem";
+import React, { ChangeEvent } from 'react';
+import { DialogItem } from "./Dialog/DialogItem";
+import c from "./Dialogs.module.css";
+import { Message } from "./Message/Message";
 
 
 type DialogType = {
@@ -19,23 +19,24 @@ type DialogsType = {
     newMessageBody: string
 }
 type StatePropsType = {
-    state: DialogsType
-    addMessage: (e: string) => void
+    dialogsPage: DialogsType
+    addMessage: () => void
     onMessageChange: (e: string) => void
-    newMessageText: string
 }
 
 export const Dialogs: React.FC<StatePropsType> = (props) => {
 
 
-    let dialogsElements = props.state.dialogsData.map((el, index) => <DialogItem key={index} name={el.name} id={el.id}
+    let dialogsElements = props.dialogsPage.dialogsData.map((el, index) => <DialogItem key={index} name={el.name} id={el.id}
                                                                                  avatar={el.avatar}/>)
-    let messagesElement = props.state.messagesData.map((el, index) => <Message key={index} message={el.message}/>)
+    let messagesElement = props.dialogsPage.messagesData.map((el, index) => <Message key={index} message={el.message}/>)
 
-    let newMessageElementValue = React.createRef<HTMLTextAreaElement>();
+    
 
     const addMessage = () => {
-        props.addMessage(props.newMessageText)
+        props.addMessage()
+        console.log(props.dialogsPage.newMessageBody);
+  
     }
     const onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.onMessageChange(e.currentTarget.value)
@@ -49,8 +50,8 @@ export const Dialogs: React.FC<StatePropsType> = (props) => {
             <div className={c.messages}>
                 {messagesElement}
             </div>
-            <textarea className={c.textArea} ref={newMessageElementValue} onChange={onMessageChange}
-                      value={props.newMessageText}></textarea>
+            <textarea className={c.textArea} onChange={onMessageChange}
+                      value={props.dialogsPage.newMessageBody}></textarea>
             <button className={c.button} onClick={addMessage}>Send Message</button>
         </div>
     )

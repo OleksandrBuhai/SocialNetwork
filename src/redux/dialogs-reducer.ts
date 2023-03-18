@@ -1,6 +1,26 @@
-import {ActionsType, AddMessageActionType, DialogsPageType, UpdateNewMessageActionType} from "./state";
+import {AddPostActionType,UpdateNewPostTextActionType} from "./state";
 
-let initialState = {
+type MessageType = {
+    id: number,
+    message: string
+}
+type DialogType = {
+    id: number,
+    name: string,
+    avatar: string
+}
+
+export type DialogsPageType = {
+    messagesData:Array<MessageType>,
+    dialogsData:Array<DialogType>,
+    newMessageBody:string
+}
+
+export type UpdateNewMessageActionType = { type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: string }
+export type AddMessageActionType = { type: 'SEND-MESSAGE' }
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageActionType | AddMessageActionType
+
+let initialState:DialogsPageType = {
     newMessageBody: " ",
     dialogsData: [
         {
@@ -45,13 +65,11 @@ let initialState = {
     ]
 }
 
-const dialogsReducer = (state:DialogsPageType = initialState,action:ActionsType) => {
+const dialogsReducer = (state:DialogsPageType = initialState,action:ActionsType):DialogsPageType => {
     if (action.type==="SEND-MESSAGE"){
-        let newMessage = {
+        let newMessage:MessageType = {
             id: 4,
             message: state.newMessageBody
-            /*message: this._state.profilePage.newPostText,*/
-
         }
         state.messagesData.push(newMessage)
         state.newMessageBody = ""
@@ -64,8 +82,8 @@ const dialogsReducer = (state:DialogsPageType = initialState,action:ActionsType)
 }
 export const addMessageActionCreator = (): AddMessageActionType => ({
     type: 'SEND-MESSAGE'
-})
+} as const)
 export const updateNewMessageTextActionCreator = (text: string): UpdateNewMessageActionType =>
-    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: text})
+    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: text} as const)
 
 export default dialogsReducer

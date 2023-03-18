@@ -1,6 +1,16 @@
 import {ActionsType, AddPostActionType, UpdateNewPostTextActionType} from "./state";
-import {ProfilePageType} from "./state";
 
+
+export type PostType = {
+    id: number,
+    message: string,
+    likecount: number
+}
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
 
 let initialState = {
     posts: [
@@ -11,12 +21,11 @@ let initialState = {
     newPostText: ""
 }
 
-const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsType):ProfilePageType => {
     if (action.type === "ADD-POST") {
         let newPost = {
             id: 4,
             message: state.newPostText,
-            /*message: this._state.profilePage.newPostText,*/
             likecount: 0
         }
         state.posts.push(newPost)
