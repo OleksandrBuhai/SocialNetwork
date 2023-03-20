@@ -55,7 +55,8 @@ export type UpdateNewPostTextActionType = {
 }
 export type UpdateNewMessageActionType = { type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: string }
 export type AddMessageActionType = { type: 'SEND-MESSAGE' }
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageActionType | AddMessageActionType
+
+export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageActionType | AddMessageActionType 
 
 let store: StoreType = {
     _state: {

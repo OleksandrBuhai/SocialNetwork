@@ -4,6 +4,8 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
+import { UsersContainer } from "./components/Users/UsercContainer";
+import { Users } from "./components/Users/Users";
 import { storeType } from "./redux/redux-state";
 import { ActionsType, RootStateType } from "./redux/state";
 
@@ -24,6 +26,7 @@ function App(props: AppType) {
                 <div className={"app-wrapper-content"}>
                     <Route path={"/profile"} render={() => <Profile/>}/>
                     <Route path={"/dialogs"} render={() => <DialogsContainer  />}/>
+                    <Route path={"/users"} render={()=><UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>
