@@ -1,4 +1,3 @@
-import { v1 } from "uuid";
 
 export type userType = {
     id: string
@@ -35,19 +34,15 @@ type ActionsType = followUsersActionType | unfollowUsersActionType | setUsersAct
 
 
 let initialState: UsersPageType = {
-    users: [
-        { id: v1(), photoUrl: 'https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/16:9/w_2560%2Cc_limit/1521-WIRED-Cat.jpeg', followed: true, fullName: 'Alex', status: 'I am lazy', location: { city: 'Mlada-Boleslav', country: 'Czechia' } },
-        { id: v1(), photoUrl: 'https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/16:9/w_2560%2Cc_limit/1521-WIRED-Cat.jpeg', followed: true, fullName: 'Alex', status: 'I am lazy', location: { city: 'Mlada-Boleslav', country: 'Czechia' } },
-        { id: v1(), photoUrl: 'https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/16:9/w_2560%2Cc_limit/1521-WIRED-Cat.jpeg', followed: false, fullName: 'Alex', status: 'I am lazy', location: { city: 'Mlada-Boleslav', country: 'Czechia' } },
-        { id: v1(), photoUrl: 'https://media.wired.co.uk/photos/60c8730fa81eb7f50b44037e/16:9/w_2560%2Cc_limit/1521-WIRED-Cat.jpeg', followed: false, fullName: 'Alex', status: 'I am lazy', location: { city: 'Mlada-Boleslav', country: 'Czechia' } },
-    ]
+    users: []
 }
 
 const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
-                ...state, users: state.users.map((el) => {
+                ...state,
+                users: state.users.map((el) => {
                     return el.id === action.payload.usersId ? { ...el, followed: true } : el
                 })
             }
@@ -71,9 +66,9 @@ export const unfollowAC = (usersId: string): unfollowUsersActionType => ({
     type: 'UNFOLLOW',
     payload: { usersId }
 })
-export const setUsersAC = (users: Array<userType>) => {
-    type: 'SET_USERS'
+export const setUsersAC = (users: Array<userType>): setUsersActionType => ({
+    type: 'SET_USERS',
     users: users
-}
+})
 
 export default usersReducer
