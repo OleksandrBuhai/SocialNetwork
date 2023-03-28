@@ -1,14 +1,13 @@
 
 export type userType = {
     id: string
-    photoUrl: string
-    followed: boolean
-    fullName: string
-    status: string
-    location: {
-        city: string,
-        country: string
+    name: string
+    photos:{
+        small:string
+        large:string
     }
+    status: null
+    followed:boolean
 }
 export type UsersPageType = {
     users: Array<userType>
