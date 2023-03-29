@@ -5,7 +5,6 @@ import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
 import { UsersContainer } from "./components/Users/UsercContainer";
-import { Users } from "./components/Users/Users";
 import { storeType } from "./redux/redux-state";
 import { ActionsType, RootStateType } from "./redux/state";
 
