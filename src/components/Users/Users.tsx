@@ -12,12 +12,14 @@ type usersPagePropsType = {
 
 
 class Users extends React.Component<usersPagePropsType>{
-    constructor(props:usersPagePropsType) {
-        super(props);
+
+
+    componentDidMount(): void {
         axios.default.get("https://social-network.samuraijs.com/api/1.0/users").then(response=>
-        props.setUsers(response.data.items)
+        this.props.setUsers(response.data.items)
         )
     }
+
     render(){
        return <div>
         {
