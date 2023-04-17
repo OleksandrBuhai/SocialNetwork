@@ -14,6 +14,7 @@ export type UsersPageType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number
+    isFetching: boolean
 }
 
 export type followUsersActionType = {
@@ -45,16 +46,23 @@ export type setTotalUsersCountActionType = {
         totalUsersCount: number
     }
 }
+export type tooglePreloaderActionType = {
+    type: "TOOGLE_PRELOADER"
+    payload: {
+        isFetching: boolean
+    }
+}
 
 
-type ActionsType = followUsersActionType | unfollowUsersActionType | setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType
+type ActionsType = followUsersActionType | unfollowUsersActionType | setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType | tooglePreloaderActionType
 
 
 let initialState: UsersPageType = {
     users: [],
     pageSize: 4,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
@@ -78,6 +86,8 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsType):
             return { ...state, currentPage: action.payload.currentPage }
         case "SET_TOTAL_USERS_COUNT":
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
+        case "TOOGLE_PRELOADER":
+            return { ...state, isFetching: !action.payload.isFetching }
         default:
             return state
     }
@@ -102,5 +112,10 @@ export const setTotalUsersCountAC = (totalUsersCount: number): setTotalUsersCoun
     type: "SET_TOTAL_USERS_COUNT",
     payload: { totalUsersCount }
 })
+export const tooglePreloaderAC = (isFetching: boolean): tooglePreloaderActionType => ({
+    type: 'TOOGLE_PRELOADER',
+    payload: { isFetching }
+})
+
 
 export default usersReducer

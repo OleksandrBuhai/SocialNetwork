@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { Dispatch } from 'redux';
 import userPhoto from "../../axios/usersImage/images.jpg";
 import { AppStateType } from "../../redux/redux-state";
-import { followAC, setCurentPageAC, setTotalUsersCountAC, setUsersAC, unfollowAC, userType } from "../../redux/users-reducer";
+import { followAC, setCurentPageAC, setTotalUsersCountAC, setUsersAC, tooglePreloaderAC, unfollowAC, userType } from "../../redux/users-reducer";
 import Users from "./UsersInfo/Users";
+import Preloader from "../../common/Preloader/Preloader";
 
 
 type mapStateToPropsType = {
@@ -13,6 +14,7 @@ type mapStateToPropsType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number
+    isFetching: boolean
 }
 
 type mapDispatchToPropsType = {
@@ -21,6 +23,7 @@ type mapDispatchToPropsType = {
     setUsers: (users: Array<userType>) => void,
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
+    tooglePreloader: (isFetching: boolean) => void
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -28,7 +31,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         users: state.userPage.users,
         pageSize: state.userPage.pageSize,
         totalUsersCount: state.userPage.totalUsersCount,
-        currentPage: state.userPage.currentPage
+        currentPage: state.userPage.currentPage,
+        isFetching: state.userPage.isFetching
     }
 }
 
@@ -48,28 +52,35 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
         setTotalUsersCount: (totalUsersCount: number) => {
             dispatch(setTotalUsersCountAC(totalUsersCount))
+        },
+        tooglePreloader: (isFetching: boolean) => {
+            dispatch(tooglePreloaderAC(isFetching))
         }
     }
 }
 
 
 type usersPagePropsType = {
-    users: Array<userType>,
-    pageSize: number,
-    totalUsersCount: number,
+    users: Array<userType>
+    pageSize: number
+    totalUsersCount: number
     currentPage: number
-    follow: (userId: string) => void,
-    unFollow: (userId: string) => void,
+    isFetching: boolean
+    follow: (userId: string) => void
+    unFollow: (userId: string) => void
     setUsers: (users: Array<userType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
+    tooglePreloader: (isFetching: boolean) => void
 }
 
 
 class UsersAPIContainer extends React.Component<usersPagePropsType>{
 
     componentDidMount(): void {
+        this.props.tooglePreloader(false)
         axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.tooglePreloader(true)
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount)
         }
@@ -77,20 +88,26 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
     }
 
     onPageChange = (pageNumber: number) => {
+        this.props.tooglePreloader(false)
         this.props.setCurrentPage(pageNumber)
-        axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response =>
-            this.props.setUsers(response.data.items)
+        axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items);
+            setTimeout(() => { this.props.tooglePreloader(true) }, 1500)
+        }
         )
     }
 
     render() {
         return (
-            <Users users={this.props.users} pageSize={this.props.pageSize} totalUsersCount={15} currentPage={this.props.currentPage} userPhoto={userPhoto} follow={this.props.follow}
-                unFollow={this.props.unFollow}
-                setUsers={this.props.setUsers}
-                setCurrentPage={this.props.setCurrentPage}
-                setTotalUsersCount={this.props.setTotalUsersCount}
-                onPageChange={this.onPageChange} />
+            <>
+                {this.props.isFetching ? <Preloader /> : null}
+                <Users users={this.props.users} pageSize={this.props.pageSize} totalUsersCount={15} currentPage={this.props.currentPage} userPhoto={userPhoto} follow={this.props.follow}
+                    unFollow={this.props.unFollow}
+                    setUsers={this.props.setUsers}
+                    setCurrentPage={this.props.setCurrentPage}
+                    setTotalUsersCount={this.props.setTotalUsersCount}
+                    onPageChange={this.onPageChange} />
+            </>
         )
     }
 }
