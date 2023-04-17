@@ -10,8 +10,8 @@ import { ActionsType, RootStateType } from "./redux/state";
 
 type AppPropsType = {
     state: RootStateType
-    dispatch:(e:ActionsType)=>void
-    store:storeType
+    dispatch: (e: ActionsType) => void
+    store: storeType
 }
 
 type AppType = {}
@@ -20,12 +20,12 @@ function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
-                <Header/>
+                <Header />
                 <NavBar />
                 <div className={"app-wrapper-content"}>
-                    <Route path={"/profile"} render={() => <Profile/>}/>
-                    <Route path={"/dialogs"} render={() => <DialogsContainer  />}/>
-                    <Route path={"/users"} render={()=><UsersContainer/>}/>
+                    <Route path={"/profile"} render={() => <Profile />} />
+                    <Route path={"/dialogs"} render={() => <DialogsContainer />} />
+                    <Route path={"/users"} render={() => <UsersContainer />} />
                 </div>
             </div>
         </BrowserRouter>
