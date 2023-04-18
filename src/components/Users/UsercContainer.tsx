@@ -36,29 +36,6 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        follow: (userId: string) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: string) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (users: Array<userType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(setTotalUsersCountAC(totalUsersCount))
-        },
-        tooglePreloader: (isFetching: boolean) => {
-            dispatch(tooglePreloaderAC(isFetching))
-        }
-    }
-}
-
 
 type usersPagePropsType = {
     users: Array<userType>
@@ -113,4 +90,11 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
 }
 
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+export const UsersContainer = connect(mapStateToProps, {
+    follow: followAC,
+    unFollow: unfollowAC,
+    setUsers: setUsersAC,
+    setCurrentPage: setCurentPageAC,
+    setTotalUsersCount: setTotalUsersCountAC,
+    tooglePreloader: tooglePreloaderAC
+})(UsersAPIContainer)
