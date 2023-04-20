@@ -1,4 +1,4 @@
-import profileReducer from "./profile-reducer";
+/* import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import navbarReducer from "./sidebar-reducer";
 
@@ -68,6 +68,7 @@ let store: StoreType = {
                 {id: 4, message: "LaLaLaLa.", likecount: 14},
             ],
             newPostText: ''
+            profile:2
         },
 
         dialogsPage: {
@@ -156,3 +157,4 @@ let store: StoreType = {
 
 
 export default store
+ */

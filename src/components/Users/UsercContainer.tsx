@@ -69,7 +69,7 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
         this.props.setCurrentPage(pageNumber)
         axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
             this.props.setUsers(response.data.items);
-            setTimeout(() => { this.props.tooglePreloader(true) }, 1500)
+            this.props.tooglePreloader(true)
         }
         )
     }

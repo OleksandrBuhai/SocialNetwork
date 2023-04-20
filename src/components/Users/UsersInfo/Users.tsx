@@ -1,6 +1,7 @@
 import React from "react";
 import style from './Users.module.css'
 import { userType } from "../../../redux/users-reducer";
+import { NavLink } from "react-router-dom";
 
 
 type usersPagePropsType = {
@@ -36,9 +37,11 @@ const Users = (props: usersPagePropsType) => {
         {
             props.users.map(el => <div key={el.id}>
                 <span>
-                    <div>
-                        <img width='100px' src={el.photos.small != null ? el.photos.small : props.userPhoto} />
-                    </div>
+                    <NavLink to={"/profile/" + el.id}>
+                        <div>
+                            <img width='100px' src={el.photos.small != null ? el.photos.small : props.userPhoto} />
+                        </div>
+                    </NavLink>
                     <div>
                         {el.followed ? <button onClick={() => { props.unFollow(el.id) }}>Follow</button>
                             : <button onClick={() => { props.follow(el.id) }}>Unfollow</button>}

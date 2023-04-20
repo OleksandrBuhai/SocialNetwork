@@ -6,13 +6,9 @@ import NavBar from "./components/NavBar/NavBar";
 import Profile from "./components/Profile/Profile";
 import { UsersContainer } from "./components/Users/UsercContainer";
 import { storeType } from "./redux/redux-state";
-import { ActionsType, RootStateType } from "./redux/state";
+import { ProfieContainer } from "./components/Profile/ProfileContainer";
 
-type AppPropsType = {
-    state: RootStateType
-    dispatch: (e: ActionsType) => void
-    store: storeType
-}
+
 
 type AppType = {}
 
@@ -23,7 +19,7 @@ function App(props: AppType) {
                 <Header />
                 <NavBar />
                 <div className={"app-wrapper-content"}>
-                    <Route path={"/profile"} render={() => <Profile />} />
+                    <Route path={"/profile"} render={() => <ProfieContainer/>} />
                     <Route path={"/dialogs"} render={() => <DialogsContainer />} />
                     <Route path={"/users"} render={() => <UsersContainer />} />
                 </div>

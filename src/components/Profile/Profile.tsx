@@ -6,14 +6,16 @@ type profilePropsType = {
 
 }
 
-const Profile:React.FC<profilePropsType> = (props) => {
+const Profile: React.FC<profilePropsType> = (props) => {
 
     return (
         <div>
-            <ProfileInfo/>
-            <MyPostsContainer/>
+            <ProfileInfo />
+            <MyPostsContainer />
         </div>
     );
 };
+
+
 
 export default Profile;
