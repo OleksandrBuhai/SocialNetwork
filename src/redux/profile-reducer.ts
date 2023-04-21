@@ -1,6 +1,3 @@
-
-
-
 export type PostType = {
     id: number,
     message: string,
@@ -10,7 +7,30 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
-    profile: number
+    profile: profileAPItype | null
+}
+
+export type profileAPItype = {
+    aboutMe: string | null,
+    contacts: {
+        facebook: string | null
+        github: string | null
+        instagram: string | null
+        mainLink: string | null
+        twitter: string | null
+        vk: string | null
+        website: string | null
+        youtube: string | null
+    },
+    fullName: string | null,
+    lookingForAJob: boolean | null,
+    lookingForAJobDescription: string | null,
+    photos: {
+        large: string | undefined,
+        small: string | undefined
+    },
+    userId: number | null
+
 }
 
 export type AddPostActionType = {
@@ -21,12 +41,10 @@ export type UpdateNewPostTextActionType = {
     newText: string
 }
 
-export type setProfilePage = {
+export type setProfilePageAT = {
     type: 'SET-PROFILE-PAGE'
-    profile: number
+    profile: profileAPItype
 }
-
-type setProfilePageAT = { type: 'SET-PROFILE-PAGE', profile: number }
 
 type ActionsType = AddPostActionType | UpdateNewPostTextActionType | setProfilePageAT
 
@@ -37,7 +55,7 @@ let initialState = {
         { id: 3, message: "hello", likecount: 5 }
     ],
     newPostText: "",
-    profile: 2
+    profile: null
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
@@ -51,8 +69,8 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
         state.newPostText = action.newText
         return { ...state, newPostText: action.newText }
-    } else if (action.type === "SET-PROFILE-PAGE"){
-        return {...state, profile: action.profile}
+    } else if (action.type === "SET-PROFILE-PAGE") {
+        return { ...state, profile: action.profile }
     }
     return state
 }
@@ -63,7 +81,7 @@ export const addPostActionCreator = (): AddPostActionType => ({
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType =>
     ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
 
-export const setProfileAC = (profile:number):setProfilePageAT => 
-    ({type: "SET-PROFILE-PAGE",profile:profile})
+export const setProfileAC = (profile: profileAPItype): setProfilePageAT =>
+    ({ type: "SET-PROFILE-PAGE", profile })
 
 export default profileReducer

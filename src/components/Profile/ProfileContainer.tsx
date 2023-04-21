@@ -1,7 +1,7 @@
 import * as axios from "axios";
 import { connect } from "react-redux";
 import React from 'react';
-import { setProfileAC } from '../../redux/profile-reducer';
+import { PostType, profileAPItype, setProfileAC } from '../../redux/profile-reducer';
 import { AppStateType } from '../../redux/redux-state';
 import Profile from './Profile';
 
@@ -11,28 +11,20 @@ type mapStateToProps = {
 }
 
 type profileContainerPropsType = {
-    profile:number,
-    setProfilePage: (profile:number)=>void
+    posts: Array<PostType>
+    newPostText: string
+    setProfilePage: (profile: profileAPItype) => void
+    profile: profileAPItype | null
 }
-
-const mapStateToProps = (state:AppStateType):mapStateToProps => {
-    return {
-        profile:state.profilePage.profile
-    }
-}
-
 
 class ProfieAPIContainer extends React.Component<profileContainerPropsType> {
 
-    
-
     componentDidMount(): void {
         axios.default.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
-           this.props.setProfilePage(response.data)
+            this.props.setProfilePage(response.data)
         }
         )
     }
-
 
     render() {
         return (
@@ -43,7 +35,18 @@ class ProfieAPIContainer extends React.Component<profileContainerPropsType> {
     }
 }
 
+type mapStateToPropsType = {
+    posts: Array<PostType>
+    newPostText: string
+    profile: profileAPItype | null
+}
 
-export const ProfieContainer = connect(mapStateToProps,{
-    setProfilePage:setProfileAC
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
+    posts: state.profilePage.posts,
+    newPostText: state.profilePage.newPostText,
+    profile: state.profilePage.profile
+})
+
+export const ProfieContainer = connect(mapStateToProps, {
+    setProfilePage: setProfileAC
 })(ProfieAPIContainer)

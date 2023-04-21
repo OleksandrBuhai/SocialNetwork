@@ -1,4 +1,3 @@
-import {AddPostActionType,UpdateNewPostTextActionType} from "./state";
 
 type MessageType = {
     id: number,
@@ -16,9 +15,10 @@ export type DialogsPageType = {
     newMessageBody:string
 }
 
+
 export type UpdateNewMessageActionType = { type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: string }
 export type AddMessageActionType = { type: 'SEND-MESSAGE' }
-export type ActionsType = AddPostActionType | UpdateNewPostTextActionType | UpdateNewMessageActionType | AddMessageActionType
+export type ActionsType = UpdateNewMessageActionType | AddMessageActionType
 
 let initialState:DialogsPageType = {
     newMessageBody: " ",

@@ -1,4 +1,19 @@
-import {ActionsType, NavbarPageType} from "./state";
+import { type } from "os"
+
+
+type FriendsType = {
+    id: number,
+    name: string,
+    avatar: string
+}
+
+type NavbarPageType = {
+    friends: Array<FriendsType>
+}
+
+type ActionsType = {
+    
+}
 
 let initialState = {
     friends: [
