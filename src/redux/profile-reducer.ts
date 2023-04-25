@@ -29,8 +29,7 @@ export type profileAPItype = {
         large: string | undefined,
         small: string | undefined
     },
-    userId: number | null
-
+    userId: string | null
 }
 
 export type AddPostActionType = {

@@ -4,6 +4,7 @@ import React from 'react';
 import { PostType, profileAPItype, setProfileAC } from '../../redux/profile-reducer';
 import { AppStateType } from '../../redux/redux-state';
 import Profile from './Profile';
+import { RouteComponentProps, withRouter } from "react-router-dom";
 
 
 type mapStateToProps = {
@@ -17,10 +18,17 @@ type profileContainerPropsType = {
     profile: profileAPItype | null
 }
 
-class ProfieAPIContainer extends React.Component<profileContainerPropsType> {
+type PathParamsType = {
+    userId: string,
+}
+
+type PropsType = RouteComponentProps<PathParamsType> & profileContainerPropsType
+
+class ProfieAPIContainer extends React.Component<PropsType> {
 
     componentDidMount(): void {
-        axios.default.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+        let userId = this.props.match.params.userId
+        axios.default.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
             this.props.setProfilePage(response.data)
         }
         )
@@ -47,6 +55,9 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     profile: state.profilePage.profile
 })
 
+
+let containerWithRoute = withRouter(ProfieAPIContainer)
+
 export const ProfieContainer = connect(mapStateToProps, {
     setProfilePage: setProfileAC
-})(ProfieAPIContainer)
+})(containerWithRoute)
