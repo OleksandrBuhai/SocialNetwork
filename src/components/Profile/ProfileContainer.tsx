@@ -28,6 +28,7 @@ class ProfieAPIContainer extends React.Component<PropsType> {
 
     componentDidMount(): void {
         let userId = this.props.match.params.userId
+        if(!userId) userId = '25296'
         axios.default.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId).then(response => {
             this.props.setProfilePage(response.data)
         }
