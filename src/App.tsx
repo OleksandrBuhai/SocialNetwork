@@ -14,7 +14,7 @@ function App(props: AppType) {
     return (
         <BrowserRouter>
             <div className={"app-wrapper"}>
-                <HeaderContainer />
+                <HeaderContainer/>
                 <NavBar />
                 <div className={"app-wrapper-content"}>
                     <Route path={"/profile"} render={() => <ProfieContainer />} />

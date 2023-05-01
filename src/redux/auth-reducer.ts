@@ -1,27 +1,23 @@
-type authMePropsType = {
-    data: {
-        id: string | null
-        email: string | null
-        login: string | null
-    }
+export type authMePropsType = {
+    id: number
+    email: string,
+    login: string,
     isAuth: boolean
 }
 
 let initialState = {
-    data: {
-        id: null,
-        email: null,
-        login: null
-    },
+    id: 1,
+    email: '',
+    login: '',
     isAuth: false
 }
 
 type authMeAT = {
     type: "AUTH-ME"
     data: {
-        id: string | null
-        email: string | null
-        login: string | null
+        id: number
+        email: string
+        login: string
     }
 }
 
@@ -31,11 +27,13 @@ const authReducer = (state: authMePropsType = initialState, action: authMeAT) =>
             return {
                 ...state,
                 ...action.data,
-                aisAuth: true
+                isAuth: true
             }
+        default:
+            return state
     }
 }
-export const autnMeAC = (id: any, email: any, login: any): authMeAT => ({
+export const autnMeAC = (id: number, email: string, login: string): authMeAT => ({
     type: "AUTH-ME",
     data: {
         id, email, login
