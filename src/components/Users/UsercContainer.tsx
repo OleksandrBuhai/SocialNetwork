@@ -1,12 +1,11 @@
 import * as axios from "axios";
 import React from "react";
 import { connect } from "react-redux";
-import { Dispatch } from 'redux';
 import userPhoto from "../../axios/usersImage/images.jpg";
+import Preloader from "../../common/Preloader/Preloader";
 import { AppStateType } from "../../redux/redux-state";
 import { followAC, setCurentPageAC, setTotalUsersCountAC, setUsersAC, tooglePreloaderAC, unfollowAC, userType } from "../../redux/users-reducer";
 import Users from "./UsersInfo/Users";
-import Preloader from "../../common/Preloader/Preloader";
 
 
 type mapStateToPropsType = {

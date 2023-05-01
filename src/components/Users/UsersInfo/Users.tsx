@@ -22,9 +22,9 @@ type usersPagePropsType = {
 const Users = (props: usersPagePropsType) => {
 
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages = []
-    for (let i = 1; i <= 15; i++) {
-        pages.push(i)
+    let pages:Array<number> = []
+    for (let i = 1; i <= 10; i++) {
+        pages = [...pages, i]
     }
 
     return <div>
