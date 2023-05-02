@@ -6,6 +6,7 @@ import Preloader from "../../common/Preloader/Preloader";
 import { AppStateType } from "../../redux/redux-state";
 import { followAC, setCurentPageAC, setTotalUsersCountAC, setUsersAC, tooglePreloaderAC, unfollowAC, userType } from "../../redux/users-reducer";
 import Users from "./UsersInfo/Users";
+import { usersAPI } from "../../api/api";
 
 
 type mapStateToPropsType = {
@@ -55,10 +56,10 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
 
     componentDidMount(): void {
         this.props.tooglePreloader(false)
-        axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.tooglePreloader(true)
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount)
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount)
         }
         )
     }
@@ -66,8 +67,8 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
     onPageChange = (pageNumber: number) => {
         this.props.tooglePreloader(false)
         this.props.setCurrentPage(pageNumber)
-        axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
-            this.props.setUsers(response.data.items);
+        usersAPI.getUsers(pageNumber,this.props.pageSize).then(data => {
+            this.props.setUsers(data.items);
             this.props.tooglePreloader(true)
         }
         )
