@@ -6,6 +6,7 @@ import axios from "axios";
 
 
 type usersPagePropsType = {
+    followingInProgress: any;
     users: Array<userType>,
     pageSize: number,
     totalUsersCount: number,
@@ -24,7 +25,7 @@ const Users = (props: usersPagePropsType) => {
 
     let pageCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages: Array<number> = []
-    for (let i = 1; i <= 10; i++) {
+    for (let i = 1; i <= 20; i++) {
         pages = [...pages, i]
     }
 
@@ -45,7 +46,7 @@ const Users = (props: usersPagePropsType) => {
                     </NavLink>
                     <div>
                         {el.followed ?
-                            <button onClick={() => {
+                            <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
                                 axios.delete(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {
                                     withCredentials: true,
                                     headers: { "API-KEY": "ac60c106-0830-42a0-92c3-38d641ee1afd" }

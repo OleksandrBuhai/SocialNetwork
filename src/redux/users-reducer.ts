@@ -9,12 +9,19 @@ export type userType = {
     status: null
     followed: boolean
 }
+
+export type followingInProgressType = {
+    isFetching:boolean,
+    userId:string
+} 
+
 export type UsersPageType = {
     users: Array<userType>
     pageSize: number,
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
+    followingInProgress: Array<followingInProgressType>
 }
 
 export type followUsersActionType = {
@@ -53,8 +60,17 @@ export type tooglePreloaderActionType = {
     }
 }
 
+export type TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE = {
+    
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS'
+    payload: {
+        userId: followingInProgressType
+        isFetching: boolean
+    }
+}
 
-type ActionsType = followUsersActionType | unfollowUsersActionType | setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType | tooglePreloaderActionType
+
+type ActionsType = followUsersActionType | unfollowUsersActionType | setUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType | tooglePreloaderActionType | TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE
 
 
 let initialState: UsersPageType = {
@@ -62,7 +78,8 @@ let initialState: UsersPageType = {
     pageSize: 4,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: []
 }
 
 const usersReducer = (state: UsersPageType = initialState, action: ActionsType): UsersPageType => {
@@ -88,6 +105,14 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsType):
             return { ...state, totalUsersCount: action.payload.totalUsersCount }
         case "TOOGLE_PRELOADER":
             return { ...state, isFetching: !action.payload.isFetching }
+            case 'TOGGLE_IS_FOLLOWING_PROGRESS': {
+                return {
+                    ...state,
+                    followingInProgress: action.payload.isFetching
+                        ? [...state.followingInProgress, action.payload.userId]
+                        : state.followingInProgress.filter(id => id != action.payload.userId)
+                }
+            }
         default:
             return state
     }
@@ -116,6 +141,8 @@ export const tooglePreloaderAC = (isFetching: boolean): tooglePreloaderActionTyp
     type: 'TOOGLE_PRELOADER',
     payload: { isFetching }
 })
+export const toggleFollowingProgressAC = (isFetching:boolean, userId:followingInProgressType):TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE => ({
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS', payload:{isFetching, userId }})
 
 
 export default usersReducer
