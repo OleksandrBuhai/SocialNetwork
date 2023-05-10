@@ -15,7 +15,7 @@ type mapStateToPropsType = {
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
-    followingInProgress: Array<followingInProgressType>
+    followingInProgress: Array<number>
 }
 
 type mapDispatchToPropsType = {
@@ -45,13 +45,14 @@ type usersPagePropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    follow: (userId: string) => void
-    unFollow: (userId: string) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     setUsers: (users: Array<userType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     tooglePreloader: (isFetching: boolean) => void
-    toggleFollowingProgress:(isFetching:boolean,userId:followingInProgressType)=>void
+    toggleFollowingProgress:(isFetching:boolean,userId:number)=>void
+    followingInProgress:Array<number>
 }
 
 
@@ -82,11 +83,11 @@ class UsersAPIContainer extends React.Component<usersPagePropsType>{
             <>
                 {this.props.isFetching ? <Preloader /> : null}
                 <Users users={this.props.users} pageSize={this.props.pageSize} totalUsersCount={15} currentPage={this.props.currentPage} userPhoto={userPhoto} follow={this.props.follow}
-                    unFollow={this.props.unFollow}
-                    setUsers={this.props.setUsers}
-                    setCurrentPage={this.props.setCurrentPage}
-                    setTotalUsersCount={this.props.setTotalUsersCount}
-                    onPageChange={this.onPageChange} />
+                unFollow={this.props.unFollow}
+                setUsers={this.props.setUsers}
+                setCurrentPage={this.props.setCurrentPage}
+                setTotalUsersCount={this.props.setTotalUsersCount}
+                onPageChange={this.onPageChange} followingInProgress={this.props.followingInProgress} toggleFollowingInProgress={this.props.toggleFollowingProgress} />
             </>
         )
     }

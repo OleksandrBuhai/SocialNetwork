@@ -1,6 +1,6 @@
 
 export type userType = {
-    id: string
+    id: number
     name: string
     photos: {
         small: string
@@ -12,60 +12,59 @@ export type userType = {
 
 export type followingInProgressType = {
     isFetching:boolean,
-    userId:string
+    userId:number
 } 
 
 export type UsersPageType = {
-    users: Array<userType>
+    users: Array<userType>,
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
-    isFetching: boolean
-    followingInProgress: Array<followingInProgressType>
+    currentPage: number,
+    isFetching: boolean,
+    followingInProgress: Array<number>
 }
 
 export type followUsersActionType = {
     type: 'FOLLOW',
     payload: {
-        usersId: string
+        usersId: number
     }
 }
 export type unfollowUsersActionType = {
-    type: 'UNFOLLOW'
+    type: 'UNFOLLOW',
     payload: {
-        usersId: string
+        usersId: number
     }
 }
 export type setUsersActionType = {
-    type: 'SET_USERS'
+    type: 'SET_USERS',
     users: Array<userType>
 }
 
 export type setCurrentPageActionType = {
-    type: "SET_CURRENT_PAGE"
+    type: "SET_CURRENT_PAGE",
     payload: {
         currentPage: number
     }
 }
 export type setTotalUsersCountActionType = {
-    type: "SET_TOTAL_USERS_COUNT"
+    type: "SET_TOTAL_USERS_COUNT",
     payload: {
         totalUsersCount: number
     }
 }
 export type tooglePreloaderActionType = {
-    type: "TOOGLE_PRELOADER"
+    type: "TOOGLE_PRELOADER",
     payload: {
         isFetching: boolean
     }
 }
 
 export type TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE = {
-    
-    type: 'TOGGLE_IS_FOLLOWING_PROGRESS'
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS',
     payload: {
-        userId: followingInProgressType
-        isFetching: boolean
+        isFetching:boolean,
+        userId:number
     }
 }
 
@@ -111,17 +110,18 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsType):
                     followingInProgress: action.payload.isFetching
                         ? [...state.followingInProgress, action.payload.userId]
                         : state.followingInProgress.filter(id => id != action.payload.userId)
+                        
                 }
             }
         default:
             return state
     }
 }
-export const followAC = (usersId: string): followUsersActionType => ({
+export const followAC = (usersId: number): followUsersActionType => ({
     type: 'FOLLOW',
     payload: { usersId }
 })
-export const unfollowAC = (usersId: string): unfollowUsersActionType => ({
+export const unfollowAC = (usersId: number): unfollowUsersActionType => ({
     type: 'UNFOLLOW',
     payload: { usersId }
 })
@@ -141,7 +141,7 @@ export const tooglePreloaderAC = (isFetching: boolean): tooglePreloaderActionTyp
     type: 'TOOGLE_PRELOADER',
     payload: { isFetching }
 })
-export const toggleFollowingProgressAC = (isFetching:boolean, userId:followingInProgressType):TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE => ({
+export const toggleFollowingProgressAC = (isFetching:boolean, userId:number):TOGGLE_IS_FOLLOWING_PROGRESS_ACTION_TYPE => ({
     type: 'TOGGLE_IS_FOLLOWING_PROGRESS', payload:{isFetching, userId }})
 
 
