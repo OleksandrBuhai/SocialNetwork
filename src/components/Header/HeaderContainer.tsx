@@ -22,7 +22,7 @@ class HeaderContainer extends React.Component<HeaderAUTHContainerPropsType>{
             if (responce.data.resultCode === 0) {
                 this.props.autnMeAC(responce.data.id, responce.data.data.email, responce.data.data.login)
             }
-            
+
         })
     }
 
