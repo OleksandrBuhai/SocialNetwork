@@ -11,8 +11,17 @@ const instanse = axios.default.create({
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
         return instanse.get(`users?page=${currentPage}&count=${pageSize}`).then(response => {
-            return response.data
-        }
+                return response.data
+            }
         )
+    },
+    unFollow(userId: number) {
+        return instanse.delete(`https://social-network.samuraijs.com/api/1.0//follow/${userId}`)
+    },
+    follow(userId: number) {
+        return instanse.post(`https://social-network.samuraijs.com/api/1.0//follow/${userId}`)
+    },
+    getProfile(userId: string) {
+        return instanse.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
     }
 }

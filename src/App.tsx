@@ -1,10 +1,10 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import {BrowserRouter, Route} from "react-router-dom";
 import './App.css';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 import NavBar from "./components/NavBar/NavBar";
-import { ProfieContainer } from "./components/Profile/ProfileContainer";
-import { UsersContainer } from "./components/Users/UsercContainer";
+import {ProfieContainer} from "./components/Profile/ProfileContainer";
+import {UsersContainer} from "./components/Users/UsercContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 
 
@@ -15,11 +15,11 @@ function App(props: AppType) {
         <BrowserRouter>
             <div className={"app-wrapper"}>
                 <HeaderContainer/>
-                <NavBar />
+                <NavBar/>
                 <div className={"app-wrapper-content"}>
-                    <Route path={"/profile/:userId?"} render={() => <ProfieContainer />} />
-                    <Route path={"/dialogs"} render={() => <DialogsContainer />} />
-                    <Route path={"/users"} render={() => <UsersContainer />} />
+                    <Route path={"/profile/:userId?"} render={() => <ProfieContainer/>}/>
+                    <Route path={"/dialogs"} render={() => <DialogsContainer/>}/>
+                    <Route path={"/users"} render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </BrowserRouter>

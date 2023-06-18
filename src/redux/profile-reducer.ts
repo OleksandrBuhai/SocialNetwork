@@ -1,3 +1,6 @@
+import {usersAPI} from "../api/api";
+import {dispatchType} from "./redux-state";
+
 export type PostType = {
     id: number,
     message: string,
@@ -29,7 +32,7 @@ export type profileAPItype = {
         large: string | undefined,
         small: string | undefined
     },
-    userId: string | null
+    userId: number
 }
 
 export type AddPostActionType = {
@@ -49,9 +52,9 @@ type ActionsType = AddPostActionType | UpdateNewPostTextActionType | setProfileP
 
 let initialState = {
     posts: [
-        { id: 1, message: "hello", likecount: 5 },
-        { id: 2, message: "hello", likecount: 5 },
-        { id: 3, message: "hello", likecount: 5 }
+        {id: 1, message: "hello", likecount: 5},
+        {id: 2, message: "hello", likecount: 5},
+        {id: 3, message: "hello", likecount: 5}
     ],
     newPostText: "",
     profile: null
@@ -64,23 +67,32 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             message: state.newPostText,
             likecount: 0
         }
-        return { ...state, posts: [...state.posts, newPost], newPostText: "" }
+        return {...state, posts: [...state.posts, newPost], newPostText: ""}
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
         state.newPostText = action.newText
-        return { ...state, newPostText: action.newText }
+        return {...state, newPostText: action.newText}
     } else if (action.type === "SET-PROFILE-PAGE") {
-        return { ...state, profile: action.profile }
+        return {...state, profile: action.profile}
     }
     return state
 }
+
+
+export const getProfileThunk = (userId: string) => (dispatch: dispatchType) => {
+    usersAPI.getProfile(userId).then(response => {
+            dispatch(setProfileAC(response.data))
+        }
+    )
+}
+
 export const addPostActionCreator = (): AddPostActionType => ({
     type: 'ADD-POST'
 })
 
 export const updateNewPostTextActionCreator = (text: string): UpdateNewPostTextActionType =>
-    ({ type: 'UPDATE-NEW-POST-TEXT', newText: text })
+    ({type: 'UPDATE-NEW-POST-TEXT', newText: text})
 
 export const setProfileAC = (profile: profileAPItype): setProfilePageAT =>
-    ({ type: "SET-PROFILE-PAGE", profile })
+    ({type: "SET-PROFILE-PAGE", profile})
 
 export default profileReducer
