@@ -4,7 +4,7 @@ import React from 'react';
 import {getProfileThunk, PostType, profileAPItype, setProfileAC} from '../../redux/profile-reducer';
 import {AppStateType} from '../../redux/redux-state';
 import Profile from './Profile';
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 
 
 type mapStateToProps = {
@@ -17,6 +17,7 @@ type profileContainerPropsType = {
     setProfilePage: (profile: profileAPItype) => void
     getProfilePage: (userId: string) => void
     profile: profileAPItype | null
+    isAuth:boolean
 }
 
 type PathParamsType = {
@@ -34,6 +35,7 @@ class ProfieAPIContainer extends React.Component<PropsType> {
     }
 
     render() {
+       if (!this.props.isAuth) return  <Redirect to='/login'/>
         return (
             <div>
                 <Profile {...this.props} />
@@ -46,18 +48,20 @@ type mapStateToPropsType = {
     posts: Array<PostType>
     newPostText: string
     profile: profileAPItype | null
+    isAuth:boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
     posts: state.profilePage.posts,
     newPostText: state.profilePage.newPostText,
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    isAuth:state.auth.isAuth
 })
 
 
 let containerWithRoute = withRouter(ProfieAPIContainer)
 
-export const ProfieContainer = connect(mapStateToProps, {
+export const ProfileContainer = connect(mapStateToProps, {
     setProfilePage: setProfileAC,
     getProfilePage: getProfileThunk,
 })(containerWithRoute)

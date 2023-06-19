@@ -34,6 +34,7 @@ import { Dialogs } from "./Dialogs";
 
 type mapStateToProps = {
     dialogsPage: DialogsPageType
+    isAuth:boolean
 }
 
 type mapDispatchToProps = {
@@ -44,7 +45,8 @@ type mapDispatchToProps = {
 
 let mapStateToProps = (state: AppStateType):mapStateToProps => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        isAuth:state.auth.isAuth
     }
 }
 
