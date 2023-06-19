@@ -1,3 +1,6 @@
+import {dispatchType} from "./redux-state";
+import {usersAPI} from "../api/api";
+
 export type authMePropsType = {
     id: number
     email: string,
@@ -33,6 +36,19 @@ const authReducer = (state: authMePropsType = initialState, action: authMeAT) =>
             return state
     }
 }
+
+
+export const authMeThunk =()=> {
+    return (dispatch:dispatchType)=>{
+        usersAPI.authMe().then(responce => {
+            if (responce.data.resultCode === 0) {
+                dispatch(autnMeAC(responce.data.id, responce.data.data.email, responce.data.data.login))
+            }
+
+        })
+    }
+}
+
 export const autnMeAC = (id: number, email: string, login: string): authMeAT => ({
     type: "AUTH-ME",
     data: {

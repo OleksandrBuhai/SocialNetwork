@@ -23,5 +23,8 @@ export const usersAPI = {
     },
     getProfile(userId: string) {
         return instanse.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+    },
+    authMe (){
+        return  instanse.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, { withCredentials: true })
     }
 }
