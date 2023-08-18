@@ -1,8 +1,7 @@
-import React, { ChangeEvent } from 'react';
-import { DialogItem } from "./Dialog/DialogItem";
+import React, {ChangeEvent} from 'react';
+import {DialogItem} from "./Dialog/DialogItem";
 import c from "./Dialogs.module.css";
-import { Message } from "./Message/Message";
-import {Redirect} from "react-router-dom";
+import {Message} from "./Message/Message";
 
 
 type DialogType = {
@@ -28,12 +27,10 @@ type StatePropsType = {
 
 export const Dialogs: React.FC<StatePropsType> = (props) => {
 
-
     let dialogsElements = props.dialogsPage.dialogsData.map((el, index) => <DialogItem key={index} name={el.name} id={el.id}
                                                                                  avatar={el.avatar}/>)
     let messagesElement = props.dialogsPage.messagesData.map((el, index) => <Message key={index} message={el.message}/>)
 
-    
 
     const addMessage = () => {
         props.addMessage()
@@ -45,7 +42,6 @@ export const Dialogs: React.FC<StatePropsType> = (props) => {
     }
 
 
-    if (!props.isAuth) return <Redirect to='login'/>
     return (
 
         <div className={c.dialogs}>
@@ -62,6 +58,7 @@ export const Dialogs: React.FC<StatePropsType> = (props) => {
     )
 
 }
+
 
 
 

@@ -1,10 +1,10 @@
-import * as axios from "axios";
 import {connect} from "react-redux";
 import React from 'react';
 import {getProfileThunk, PostType, profileAPItype, setProfileAC} from '../../redux/profile-reducer';
 import {AppStateType} from '../../redux/redux-state';
 import Profile from './Profile';
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import withAuthRedirect from "../../hoc/withAuthRedirect";
 
 
 type mapStateToProps = {
@@ -35,7 +35,7 @@ class ProfieAPIContainer extends React.Component<PropsType> {
     }
 
     render() {
-       if (!this.props.isAuth) return  <Redirect to='/login'/>
+
         return (
             <div>
                 <Profile {...this.props} />
@@ -60,8 +60,11 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
 
 
 let containerWithRoute = withRouter(ProfieAPIContainer)
+let AuthWithRedirect = withAuthRedirect(containerWithRoute)
+
+
 
 export const ProfileContainer = connect(mapStateToProps, {
     setProfilePage: setProfileAC,
     getProfilePage: getProfileThunk,
-})(containerWithRoute)
+})(AuthWithRedirect)

@@ -1,7 +1,7 @@
 import React from "react";
 import style from './Users.module.css'
 import {userType} from "../../../redux/users-reducer";
-import {NavLink} from "react-router-dom";
+import {NavLink, Redirect} from "react-router-dom";
 
 
 type usersPagePropsType = {
@@ -16,6 +16,7 @@ type usersPagePropsType = {
     onPageChange: (pageNumber: number) => void
     toggleFollowingInProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
+    isAuth:boolean
 }
 
 
@@ -27,6 +28,8 @@ const Users = (props: usersPagePropsType) => {
         pages = [...pages, i]
     }
 
+
+    if (!props.isAuth) return <Redirect to='login/.'/>
     return <div>
         <div>
             {pages.map((el, index) => {

@@ -12,6 +12,7 @@ import {
     userType
 } from "../../redux/users-reducer";
 import Users from "./UsersInfo/Users";
+import {withRouter} from "react-router-dom";
 
 
 type mapStateToPropsType = {
@@ -21,6 +22,7 @@ type mapStateToPropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: Array<number>
+    isAuth:boolean
 }
 
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -30,7 +32,8 @@ const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         totalUsersCount: state.userPage.totalUsersCount,
         currentPage: state.userPage.currentPage,
         isFetching: state.userPage.isFetching,
-        followingInProgress: state.userPage.followingInProgress
+        followingInProgress: state.userPage.followingInProgress,
+        isAuth:state.auth.isAuth
     }
 }
 
@@ -74,11 +77,15 @@ class UsersAPIContainer extends React.Component<usersPagePropsType> {
                        setCurrentPage={this.props.setCurrentPage}
                        onPageChange={this.onPageChange}
                        followingInProgress={this.props.followingInProgress}
-                       toggleFollowingInProgress={this.props.toggleFollowingProgress}/>
+                       toggleFollowingInProgress={this.props.toggleFollowingProgress}
+                       isAuth/>
+
             </>
         )
     }
 }
+
+
 
 
 export const UsersContainer = connect(mapStateToProps, {
