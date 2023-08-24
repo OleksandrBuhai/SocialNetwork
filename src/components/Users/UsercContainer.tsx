@@ -13,6 +13,7 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./UsersInfo/Users";
 import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 type mapStateToPropsType = {
@@ -86,12 +87,10 @@ class UsersAPIContainer extends React.Component<usersPagePropsType> {
 }
 
 
-
-
-export const UsersContainer = connect(mapStateToProps, {
+export const UsersContainer = compose(connect(mapStateToProps, {
     follow: followThunk,
     unFollow: unfollowThunk,
     setCurrentPage: setCurentPageAC,
     toggleFollowingProgress: toggleFollowingProgressAC,
     getUsers: getUsers
-})(UsersAPIContainer)
+}))(UsersAPIContainer)
