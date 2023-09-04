@@ -27,6 +27,7 @@ type profileContainerPropsType = {
     profile: profileAPItype | null
     isAuth: boolean
     status:string
+    getStatus:(userId: string)=>void
     updateStatus : (status:string)=>void
 }
 
@@ -42,6 +43,7 @@ export class ProfieAPIContainer extends React.Component<PropsType> {
         let userId = this.props.match.params.userId
         if (!userId) userId = '25296'
         this.props.getProfilePage(userId)
+        this.props.getStatus(userId)
     }
 
     render() {
@@ -51,6 +53,7 @@ export class ProfieAPIContainer extends React.Component<PropsType> {
                 <Profile {...this.props}  status={this.props.status} updateStatus={this.props.updateStatus}/>
             </div>
         )
+
     }
 }
 

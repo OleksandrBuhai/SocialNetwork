@@ -6,11 +6,12 @@ import avatar from '../../../axios/usersImage/images.jpg'
 import {ProfileStatus} from "./ProfileStatus";
 
 type profileInfoType = { profile: profileAPItype | null,
-status:string}
+status:string,
+    updateStatus:(status:string)=>void}
 
 
 const ProfileInfo = (props: profileInfoType) => {
-    console.log(props.status)
+    console.log(props.status + '4oho pusto')
     if (!props.profile) {
         return <Preloader />
     }
@@ -21,7 +22,7 @@ const ProfileInfo = (props: profileInfoType) => {
                 <div className={c.post}>
                     <img
                         src={props.profile.photos.large ? props.profile.photos.large : avatar} alt={'avatar'}/>
-                    <ProfileStatus status={props.status}/>
+                    <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 </div>
             </div>
         );
