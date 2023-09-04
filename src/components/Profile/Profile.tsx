@@ -8,13 +8,15 @@ type profilePropsType = {
     newPostText: string
     setProfilePage: (profile: profileAPItype) => void
     profile: profileAPItype | null
+    status:string
+    updateStatus:(status:string)=>void
 }
 
 const Profile: React.FC<profilePropsType> = (props:profilePropsType) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status}/>
             <MyPostsContainer />
         </div>
     );

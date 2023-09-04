@@ -16,15 +16,28 @@ export const usersAPI = {
         )
     },
     unFollow(userId: number) {
-        return instanse.delete(`https://social-network.samuraijs.com/api/1.0//follow/${userId}`)
+        return instanse.delete(`/follow/${userId}`)
     },
     follow(userId: number) {
-        return instanse.post(`https://social-network.samuraijs.com/api/1.0//follow/${userId}`)
+        return instanse.post(`/follow/${userId}`)
     },
     getProfile(userId: string) {
-        return instanse.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+        return profileApi.getProfile(userId)
     },
     authMe (){
-        return  instanse.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, { withCredentials: true })
+        return  instanse.get(`auth/me`, { withCredentials: true })
     }
+}
+
+export const profileApi = {
+        getProfile(userId: string){
+            return instanse.get(`profile/` + userId)
+        },
+        getStatus(userId:string) {
+            return instanse.get(`profile/status/` + userId)
+        },
+       updateStatus(status:string) {
+            return instanse.put(`profile/status`,{status:status})
+    }
+
 }
